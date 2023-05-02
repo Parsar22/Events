@@ -8,21 +8,79 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hw2/Event_View_Model.dart';
+import 'package:hw2/Event_form_controller.dart';
 import 'package:provider/provider.dart';
 import 'Event.dart';
 import 'TableRow.dart';
 
+
+_onEndDateAdd(DateTime newDate) {
+  if (newDate != null) {
+    if (_startDateTime == null) {
+      WrongDate().showSnackBar(context) ;
+    }
+    /*ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Row(
+              children: const [
+                Icon(Icons.error),
+                SizedBox(width: 20),
+                Expanded(
+                  child: Text('Invalid end date was given!'),
+                )
+              ],
+            ),
+          ),
+        );
+      }*/
+
+    else if (newDate.isBefore(_startDateTime)) {
+      WrongDate().showSnackBar(context) ;
+    }
+    /*  ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Row(
+              children: const [
+                Icon(Icons.error),
+                SizedBox(width: 20),
+                Expanded(
+                  child: Text('Invalid end date was given!'),
+                )
+              ],
+            ),
+          ),
+        );
+      }*/
+    else {
+      _EventFormController.setEnd(newDate);
+    }
+  }
+}
+
 class EventItem extends StatelessWidget {
-  const EventItem({super.key}) ;
+
+  const EventItem({
+
+    required TextEditingController titleController,
+    required TextEditingController descController,
+    required EventFormController eventFormController,
+    required void Function() submit,
+
+}) : _titleController = titleController, _descController = descController, _eventFormController = eventFormController, _submit = submit;
+
+  final TextEditingController _titleController;
+  final TextEditingController _descController;
+  final EventFormController _eventFormController;
+  final void Function() _submit;
+
 
   _onDelete(int index, EventViewModel eventViewModel ){
     eventViewModel.removeEvent(index) ;
   }
 
-  _onEdit(int index, EventViewModel eventViewModel){
+ /* _onEdit(int index, EventViewModel eventViewModel){
     eventViewModel.ed
-  }
-
+  }*/
 
 
   @override
@@ -60,7 +118,7 @@ class EventItem extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
               child: ElevatedButton(
                   onPressed: () {
-                    onDelete(event);
+                    _onDelete(index, eventViewModel);
                   },
                   child: const Text('Delete'),
                 ]

@@ -1,6 +1,6 @@
 
 import 'package:flutter/cupertino.dart';
-import 'package:hw2/EventItem.dart';
+import 'package:hw2/Event_Items.dart';
 
 
 extension Tablebuild on EventItem{

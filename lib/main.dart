@@ -2,11 +2,10 @@
 //04/18/2023
 //main.dart
 
-
-import 'package:flutter/material.dart' ;
-import 'package:hw2/TitlesPage.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'Event.dart';
-import 'EventItem.dart';
+import 'Event_Items.dart';
 import 'EditEventForm.dart';
 import 'EventForm.dart';
 import 'package:go_router/go_router.dart';
@@ -17,71 +16,62 @@ void main() {
   runApp(MyApp());
 }
 
-
-
 final router = GoRouter(
   initialLocation: '/home',
   routes: [
     GoRoute(
-    path: '/home',
-    name: 'home',
-    builder: (context, _) => const MyHomePage(),
+      path: '/home',
+      name: 'home',
+      builder: (context, _) => const MyHomePage(),
     ),
-
     GoRoute(
-        path: '/Edit',
-        name: 'EditForm',
-        builder: (context, _) => const EditEventForm(),
+      path: '/Edit',
+      name: 'EditForm',
+      builder: (context, _) => const EditEventForm(),
     ),
   ],
 );
 
-
-
 class MyApp extends StatelessWidget {
-
   const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     return ChangeNotifierProvider(
-      create: (context) => EventViewModel(),
-  // We use this alternate constructor to provide a router instead of
-  // the default constructor that only takes a single "home" page.
-      child: MaterialApp.router(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.brown,
-      ),
-        routerConfig: router,
-      )
+        create: (context) => EventViewModel(),
+        // We use this alternate constructor to provide a router instead of
+        // the default constructor that only takes a single "home" page.
+        child: MaterialApp.router(
+          title: 'Flutter Demo',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primarySwatch: Colors.red,
+          ),
+          routerConfig: router,
+        )
     );
   }
 }
+
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
-  }
+  State<MyHomePage> createState() => _MyHomePageState() ;
+}
 
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    appBar: AppBar(
+      appBar: AppBar(
         title: const Text("Event list"),
         centerTitle: true,
-    ),
-      body: const Center(
-          child: EventForm()
       ),
+      body: const Center(child: EventForm()),
     );
   }
 }
@@ -247,6 +237,3 @@ class _HomePageState extends State<MyEventsApp> {
       );
   }
 }*/
-
-
-
