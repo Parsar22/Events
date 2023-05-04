@@ -7,14 +7,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:hw2/Event.dart';
 import 'package:flutter/material.dart';
 import 'package:hw2/Event_View_Model.dart';
-
+import 'package:hw2/Event_form_controller.dart';
+import 'package:hw2/WrongDate.dart';
+import 'package:provider/provider.dart';
+import 'Event_Items.dart';
+import 'Event_View_Model.dart';
 
 
 class EventForm extends StatefulWidget {
-  const EventForm({Key? key}) : super(key: key);
+  const EventForm({super.key});
 
   @override
-  _EventScreenState createState() => _EventScreenState();
+  State<EventForm> createState() => _EventScreenState();
 }
 
 
@@ -24,7 +28,7 @@ class _EventScreenState extends State<EventForm> {
 
   final _titleController = TextEditingController(text: null);
   final _descController = TextEditingController(text: null);
-
+  final _EventFormController = EventFormController('title','desc', DateTime.now(),DateTime.now() );
   /*// _onWrongDate is needed to be able to initiate wrongDate()
   _onWrongDate() {
     WrongDate().showSnackBar(context);
@@ -65,7 +69,9 @@ class _EventScreenState extends State<EventForm> {
   _onEndDateAdd(DateTime newDate) {
     if (newDate != null) {
       if (_startDateTime == null) {
-        ScaffoldMessenger.of(context).showSnackBar(
+        WrongDate().showSnackBar(context) ;
+      }
+        /*ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Row(
               children: const [
@@ -78,10 +84,12 @@ class _EventScreenState extends State<EventForm> {
             ),
           ),
         );
-      }
+      }*/
 
       else if (newDate.isBefore(_startDateTime)) {
-        ScaffoldMessenger.of(context).showSnackBar(
+        WrongDate().showSnackBar(context) ;
+      }
+      /*  ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Row(
               children: const [
@@ -94,11 +102,9 @@ class _EventScreenState extends State<EventForm> {
             ),
           ),
         );
-      }
+      }*/
       else {
-        setState(() {
-          _endDateTime = newDate;
-        });
+        _EventFormController.setEnd(newDate);
       }
     }
   }
@@ -107,25 +113,34 @@ class _EventScreenState extends State<EventForm> {
   _submit() {
     if (_formKey.currentState!.validate()) {
       final event = Event(
-          _titleController.text,
-          _descController.text,
-          _startDateTime,
-          _endDateTime
+          _EventFormController.title,
+          _EventFormController.description,
+          _EventFormController.start,
+          _EventFormController.end
       );
-      final EventViewModel = context.read<EventViewModel>();
+      final eventViewModel = context.read<EventViewModel>();
+      eventViewModel.addEvent(event);
 
       _formKey.currentState!.reset();
-      Navigator.pop(context, event);
     }
   }
 
 
   @override
   Widget build(BuildContext context) {
+    return AnimatedBuilder(
+        animation: _EventFormController,
+        builder: (context, _) => Form(
+          key: _formKey,
+          child: EventItem(titleController: _titleController, descController: _descController, eventFormController: _EventFormController,
+          ),
+    )
+  }
+  }
 
 
     //creating the form to add an event
-    return Scaffold(
+   /* return Scaffold(
       appBar: AppBar(
         title: Text('My Form'),
       ),
@@ -140,7 +155,8 @@ class _EventScreenState extends State<EventForm> {
                     decoration: const InputDecoration(labelText: 'title'),
                     keyboardType: TextInputType.text,
                     controller: _titleController,
-                    validator: _validateTitle),
+                    validator: _validateTitle
+                ),
 
                 TextFormField(
                     decoration: const InputDecoration(labelText: 'desc'),
@@ -198,4 +214,4 @@ class _EventScreenState extends State<EventForm> {
     );
   }
 
-}
+}*/

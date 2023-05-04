@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import 'Event.dart';
-import 'EventItem.dart';
+import 'Event_Items.dart';
 
 
 

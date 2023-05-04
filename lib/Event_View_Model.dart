@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hw2/EditEventForm.dart';
-import 'package:hw2/EventItem.dart';
+import 'package:hw2/Event_Items.dart';
 import 'Event.dart';
 
-class EventViewModel extends ChangeNotifier{
+
+class EventViewModel extends ChangeNotifier {
   final List<Event> _events = [] ;
 
   void addEvent(Event event) {
@@ -17,7 +18,11 @@ class EventViewModel extends ChangeNotifier{
     notifyListeners() ;
   }
 
-  void ed
+  void editEvent(int index){
+    EditEvent(index, _events) ;
+    notifyListeners() ;
+  }
+
 
   int get eventCount => _events.length;
 
