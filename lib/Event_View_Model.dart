@@ -18,10 +18,10 @@ class EventViewModel extends ChangeNotifier {
     notifyListeners() ;
   }
 
-  void editEvent(int index){
+/*  void editEvent(int index){
     EditEvent(index, _events) ;
     notifyListeners() ;
-  }
+  }*/
 
 
   int get eventCount => _events.length;

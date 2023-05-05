@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 import 'Event.dart';
 import 'TableRow.dart';
 
-
+/*
 _onEndDateAdd(DateTime newDate) {
   if (newDate != null) {
     if (_startDateTime == null) {
@@ -56,22 +56,9 @@ _onEndDateAdd(DateTime newDate) {
     }
   }
 }
-
+*/
 class EventItem extends StatelessWidget {
 
-  const EventItem({
-
-    required TextEditingController titleController,
-    required TextEditingController descController,
-    required EventFormController eventFormController,
-    required void Function() submit,
-
-}) : _titleController = titleController, _descController = descController, _eventFormController = eventFormController, _submit = submit;
-
-  final TextEditingController _titleController;
-  final TextEditingController _descController;
-  final EventFormController _eventFormController;
-  final void Function() _submit;
 
 
   _onDelete(int index, EventViewModel eventViewModel ){
@@ -84,52 +71,60 @@ class EventItem extends StatelessWidget {
 
 
   @override
-  Widget build(BuildContext context){
-    final eventViewModel =context.watch<EventViewModel>();
-    final allEvents = eventViewModel.AllEvents ;
+  Widget build(BuildContext context) {
+    final eventViewModel = context.watch<EventViewModel>();
+    final allEvents = eventViewModel.AllEvents;
 
 
     return ListView.builder(
 
-      itemCount: eventViewModel.eventCount,
-      itemBuilder: (context, index) => Card(
-        child: Table(
-            columnWidths: const {
-              0: FlexColumnWidth(2.0),
-              1: FlexColumnWidth(3.0),
-            },
-            children: [
-              _buildTableRow('title', allEvents[index].title),
-              _buildTableRow('Description', allEvents[index].desc),
-              _buildTableRow('start', allEvents[index].start.toString()),
-              _buildTableRow('title', allEvents[index].end.toString()),
-              TableRow(
-                  children: [
-              Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  onEdit(event);
-                },
-                child: const Text('Edit'),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-              child: ElevatedButton(
-                  onPressed: () {
-                    _onDelete(index, eventViewModel);
-                  },
-                  child: const Text('Delete'),
-                ]
-            ),
-            ),
+        itemCount: eventViewModel.eventCount,
+        itemBuilder: (context, index) =>
+            Card(
+                child: Table(
+                    columnWidths: const {
+                      0: FlexColumnWidth(2.0),
+                      1: FlexColumnWidth(3.0),
+                    },
+                    children: [
+                      _buildTableRow('title', allEvents[index].title),
+                      _buildTableRow('Description', allEvents[index].desc),
+                      _buildTableRow('start', allEvents[index].start.toString()),
+                      _buildTableRow('end', allEvents[index].end.toString()),
+                      TableRow(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 4.0, horizontal: 8.0),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  //        onEdit(event);
+                                },
+                                child: const Text('Edit'),
+                              ),
+                            ),
+                            Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 4.0, horizontal: 8.0),
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    _onDelete(index, eventViewModel);
+                                  },
+                                  child: const Text('Delete'),
+                                )
+                            )
+                          ]
+                      ),
+                    ]
+                )
+            )
 
 
-
-
-    )
+    );
   }
+
+
+
 
   /*
   final Event event;

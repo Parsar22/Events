@@ -4,6 +4,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hw2/view_add_button.dart';
 import 'Event.dart';
 import 'Event_Items.dart';
 import 'EditEventForm.dart';
@@ -29,6 +30,12 @@ final router = GoRouter(
       name: 'EditForm',
       builder: (context, _) => const EditEventForm(),
     ),
+    GoRoute(
+      path: '/form',
+      name: 'form',
+      builder: (context, _) => const EventForm(),
+    ),
+
   ],
 );
 
@@ -46,7 +53,7 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            primarySwatch: Colors.red,
+            primarySwatch: Colors.purple,
           ),
           routerConfig: router,
         )
@@ -70,9 +77,16 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: const Text("Event list"),
         centerTitle: true,
+        actions: const [
+          viewAddButton(),
+        ],
       ),
-      body: const Center(child: EventForm()),
-    );
+      body:  Center(
+          child: EventItem()
+      ),
+
+      );
+
   }
 }
 /*
