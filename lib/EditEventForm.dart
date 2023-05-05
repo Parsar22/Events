@@ -39,13 +39,13 @@ class _EventFormState extends State<EditEventForm> {
      }
   }
 
-  _onEndDateAdded(DateTime newDate) {
+  _onEndDateAdded(DateTime? newDate) {
     if (newDate != null) {
       if (_startDate == null) {
-        return WrongDate().showSnackBar(context) ;
+        return WrongEndDate().showSnackBar(context) ;
       }
       if (newDate.isBefore(_startDate!)) {
-        return WrongDate().showSnackBar(context) ;
+        return WrongEndDate().showSnackBar(context) ;
       }
       setState(() {
         _endDate= newDate;

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import 'Event.dart';
-import 'Event_Items.dart';
+/*import 'Event_Items.dart';
 
 
 
@@ -18,9 +18,7 @@ class _TitlePageState() extends State<TitlePage>{
   final _formKey = GlobalKey<FormState>();
 
 
-
-
-}
+}*/
 
 
 
